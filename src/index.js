@@ -1,10 +1,11 @@
 import os from 'os';
-import { stdin as input, stdout as output } from 'process';
 import readline from 'readline';
+import { stdin as input, stdout as output } from 'process';
 import { getUsername, printCurrentDir, wellcomeUser, exitFileManager } from './helpers/utils.js';
 import { errors } from './helpers/constants.js';
 import { goUp, changeDir, listFiles } from './fs/navigation.js';
 import { getEOL, getCPUs, getHomeDirectory, getSystemUser, getArchitecture } from './os/info.js';
+import { calculateFileHash } from './hash/hash.js';
 
 const commandConsole = readline.createInterface({ input, output });
 const username = getUsername();
@@ -62,6 +63,14 @@ commandConsole.on('line', (input) => {
             console.log(errors.invalidInput);
             printCurrentDir(currentDir);
         }
+      } else {
+        console.log(errors.invalidInput);
+      }
+      break;
+    case 'hash':
+      if (firstArg) {
+        // To handle spaces in filename or path
+        calculateFileHash([firstArg, ...args].join(' '), currentDir);
       } else {
         console.log(errors.invalidInput);
       }
