@@ -20,7 +20,9 @@ Only if the launch script is like this:
 "start": "node src/index.js --username=%npm_config_username%"
 ```
 
-Also, you do not need to escape paths and file names containing spaces when entering them. At least in powershell and git bash, which I checked, everything is processed correctly.
+For file commands that expect a single argument, you should not wrap pathnames with spaces in quotes.
+but for commands that expect 2 arguments, you need to wrap the arguments in quotes.
+At least in powershell and git bash, which I checked, everything is processed correctly.
 
 ## Basic Scope
 
