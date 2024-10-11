@@ -1,5 +1,27 @@
 # Scoring: File Manager
 
+## For reviewers
+
+If you suddenly have problems getting the correct username, please change the script for launching the program to the following:
+
+```
+"start": "node src/index.js"
+```
+
+My system normally accepts launching with the parameter:
+
+```
+npm run start -- --username=your_username
+```
+
+Only if the launch script is like this:
+
+```
+"start": "node src/index.js --username=%npm_config_username%"
+```
+
+Also, you do not need to escape paths and file names containing spaces when entering them. At least in powershell and git bash, which I checked, everything is processed correctly.
+
 ## Basic Scope
 
 - General
