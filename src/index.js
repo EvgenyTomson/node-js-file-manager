@@ -26,7 +26,7 @@ commandConsole.on('line', (input) => {
       if (!args.length) {
         currentDir = changeDir(firstArg, currentDir);
       } else {
-        console.log(errors.invalidInput);
+        console.error(errors.invalidInput);
       }
       printCurrentDir(currentDir);
       break;
@@ -60,11 +60,11 @@ commandConsole.on('line', (input) => {
             printCurrentDir(currentDir);
             break;
           default:
-            console.log(errors.invalidInput);
+            console.error(errors.invalidInput);
             printCurrentDir(currentDir);
         }
       } else {
-        console.log(errors.invalidInput);
+        console.error(errors.invalidInput);
       }
       break;
     case 'hash':
@@ -72,11 +72,11 @@ commandConsole.on('line', (input) => {
         // To handle spaces in filename or path
         calculateFileHash([firstArg, ...args].join(' '), currentDir);
       } else {
-        console.log(errors.invalidInput);
+        console.error(errors.invalidInput);
       }
       break;
     default:
-      console.log(errors.invalidInput);
+      console.error(errors.invalidInput);
       printCurrentDir(currentDir);
   }
 });

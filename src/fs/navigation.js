@@ -15,7 +15,7 @@ export const changeDir = (dir, currentDir) => {
   if (fs.existsSync(targetDir) && fs.statSync(targetDir).isDirectory()) {
     return targetDir;
   } else {
-    console.log(errors.operationFailed);
+    console.error(errors.operationFailed);
     return currentDir;
   }
 };
@@ -23,7 +23,7 @@ export const changeDir = (dir, currentDir) => {
 export const listFiles = (currentDir) => {
   fs.readdir(currentDir, { withFileTypes: true }, (err, files) => {
     if (err) {
-      console.log(errors.operationFailed);
+      console.error(errors.operationFailed);
       return;
     }
 
