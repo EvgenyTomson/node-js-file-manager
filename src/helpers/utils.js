@@ -35,13 +35,12 @@ export const getAbsolutePath = (currentDir, inputPath) =>
 // To handle path with spaces and quotes
 export const handlePathWithSpaces = (...args) => {
   const compressArgs = processPath(args);
-  let error = null;
   if (compressArgs.length < 2) {
-    error = errors.invalidInput;
+    return { error: errors.invalidInput, filePath: null, destinationPath: null };
   }
 
   const filePath = clearPath(compressArgs[0]);
   const destinationPath = clearPath(compressArgs[1]);
 
-  return { error, filePath, destinationPath };
+  return { error: null, filePath, destinationPath };
 };
