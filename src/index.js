@@ -94,17 +94,14 @@ commandConsole.on('line', async (input) => {
       printCurrentDir(currentDir);
       break;
     case 'cat':
-      // To handle spaces in filename or path without quotes
       await cat([firstArg, ...args].join(' '), currentDir);
       printCurrentDir(currentDir);
       break;
     case 'add':
-      // To handle spaces in filename or path without quotes
       await add([firstArg, ...args].join(' '), currentDir);
       printCurrentDir(currentDir);
       break;
     case 'rm':
-      // To handle spaces in filename or path without quotes
       await remove([firstArg, ...args].join(' '), currentDir);
       printCurrentDir(currentDir);
       break;
@@ -126,7 +123,6 @@ commandConsole.on('line', async (input) => {
   }
 });
 
-// Ctrl+C
 process.on('SIGINT', () => {
   exitFileManager(username);
 });
