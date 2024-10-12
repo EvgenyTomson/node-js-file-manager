@@ -1,3 +1,5 @@
+import path from 'path';
+
 export const getUsername = () => {
   const args = process.argv.slice(2);
   const username = args.find((arg) => arg.startsWith('--username=')).split('=')[1];
@@ -25,3 +27,6 @@ export const exitFileManager = (username) => {
 export const clearPath = (path) => path.trim().replace(/["']/g, '');
 
 export const processPath = (path) => path.join(' ').match(/(?:[^\s"]+|"[^"]*")+/g);
+
+export const getAbsolutePath = (currentDir, inputPath) =>
+  path.isAbsolute(inputPath) ? inputPath : path.join(currentDir, inputPath);

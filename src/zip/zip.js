@@ -1,22 +1,19 @@
 import fs from 'fs/promises';
-import path from 'path';
 import { createBrotliCompress, createBrotliDecompress } from 'zlib';
 import { pipeline } from 'stream';
 import { createReadStream, createWriteStream } from 'fs';
 import { promisify } from 'util';
 import { errors } from '../helpers/constants.js';
-import { clearPath, processPath } from '../helpers/utils.js';
+import { clearPath, processPath, getAbsolutePath } from '../helpers/utils.js';
 
 const pipe = promisify(pipeline);
 
 const compressFile = async (currentDir, filePath, destinationPath) => {
   try {
-    const fullFilePath = path.isAbsolute(filePath) ? filePath : path.resolve(currentDir, filePath);
+    const fullFilePath = getAbsolutePath(currentDir, filePath);
     await fs.access(fullFilePath);
 
-    const fullDestinationPath = path.isAbsolute(destinationPath)
-      ? destinationPath
-      : path.resolve(currentDir, destinationPath);
+    const fullDestinationPath = getAbsolutePath(currentDir, destinationPath);
 
     const inputStream = createReadStream(fullFilePath);
     const outputStream = createWriteStream(fullDestinationPath);
@@ -32,12 +29,10 @@ const compressFile = async (currentDir, filePath, destinationPath) => {
 
 const decompressFile = async (currentDir, filePath, destinationPath) => {
   try {
-    const fullFilePath = path.isAbsolute(filePath) ? filePath : path.resolve(currentDir, filePath);
+    const fullFilePath = getAbsolutePath(currentDir, filePath);
     await fs.access(fullFilePath);
 
-    const fullDestinationPath = path.isAbsolute(destinationPath)
-      ? destinationPath
-      : path.resolve(currentDir, destinationPath);
+    const fullDestinationPath = getAbsolutePath(currentDir, destinationPath);
 
     const inputStream = createReadStream(fullFilePath);
     const outputStream = createWriteStream(fullDestinationPath);

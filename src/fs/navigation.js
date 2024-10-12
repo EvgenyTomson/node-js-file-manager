@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { errors } from '../helpers/constants.js';
+import { getAbsolutePath } from '../helpers/utils.js';
 
 export const goUp = (currentDir) => {
   const parentDir = path.dirname(currentDir);
@@ -11,7 +12,7 @@ export const goUp = (currentDir) => {
 };
 
 export const changeDir = (dir, currentDir) => {
-  const targetDir = path.isAbsolute(dir) ? dir : path.join(currentDir, dir);
+  const targetDir = getAbsolutePath(currentDir, dir);
   if (fs.existsSync(targetDir) && fs.statSync(targetDir).isDirectory()) {
     return targetDir;
   } else {
