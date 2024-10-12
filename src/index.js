@@ -32,15 +32,13 @@ commandConsole.on('line', async (input) => {
       printCurrentDir(currentDir);
       break;
     case 'cd':
-      if (!args.length) {
-        currentDir = changeDir(firstArg, currentDir);
-      } else {
-        console.error(errors.invalidInput);
-      }
+      // To handle spaces in filename or path without quotes
+      currentDir = changeDir([firstArg, ...args].join(' '), currentDir);
       printCurrentDir(currentDir);
       break;
     case 'ls':
-      listFiles(currentDir);
+      await listFiles(currentDir);
+      printCurrentDir(currentDir);
       break;
     case '.exit':
       exitFileManager(username);
@@ -71,6 +69,7 @@ commandConsole.on('line', async (input) => {
           default:
             console.error(errors.invalidInput);
             printCurrentDir(currentDir);
+            break;
         }
       } else {
         console.error(errors.invalidInput);
@@ -78,7 +77,6 @@ commandConsole.on('line', async (input) => {
       break;
     case 'hash':
       if (firstArg) {
-        // To handle spaces in filename or path without quotes
         calculateFileHash([firstArg, ...args].join(' '), currentDir);
       } else {
         console.error(errors.invalidInput);

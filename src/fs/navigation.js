@@ -13,6 +13,8 @@ export const goUp = (currentDir) => {
 
 export const changeDir = (dir, currentDir) => {
   const targetDir = getAbsolutePath(currentDir, dir);
+  console.log('dir: ', dir);
+  console.log('targetDir: ', targetDir);
   if (fs.existsSync(targetDir) && fs.statSync(targetDir).isDirectory()) {
     return targetDir;
   } else {
@@ -21,7 +23,7 @@ export const changeDir = (dir, currentDir) => {
   }
 };
 
-export const listFiles = (currentDir) => {
+export const listFiles = async (currentDir) => {
   fs.readdir(currentDir, { withFileTypes: true }, (err, files) => {
     if (err) {
       console.error(errors.operationFailed);

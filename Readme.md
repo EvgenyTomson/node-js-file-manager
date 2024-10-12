@@ -20,13 +20,13 @@ Only if the launch script is like this:
 "start": "node src/index.js --username=%npm_config_username%"
 ```
 
-For file commands that expect a single argument, you should not wrap pathnames with spaces in quotes. Like:
+For file commands that expect a single argument (e.g. cd, hash, cat, add, rm), you should not wrap pathnames with spaces in quotes. Like:
 
 ```
 cat path with spaces/file name with spaces.txt
 ```
 
-But for commands that expect 2 arguments, you need to wrap the arguments in quotes. Like:
+But for commands that expect 2 arguments (e.g. compress, decompress, rn, cp, mv), you need to wrap the arguments in quotes. Like:
 
 ```
 cp "path with spaces/file to copy with spaces.txt" "destination folder"
