@@ -32,22 +32,26 @@ export const listFiles = (currentDir) => {
     const filesList = [];
 
     files.forEach((file) => {
-      const type = file.isDirectory() ? 'directory' : 'file';
       if (file.isDirectory()) {
-        directoriesList.push(`${file.name} - ${type}`);
+        directoriesList.push(file.name);
       } else {
-        filesList.push(`${file.name} - ${type}`);
+        filesList.push(file.name);
       }
     });
 
-    directoriesList.sort();
-    filesList.sort();
+    const sorteDirectories = directoriesList
+      .sort()
+      .map((item) => ({ name: item, type: 'directory' }));
+    const sortedFiles = filesList
+      .sort()
+      .sort()
+      .map((item) => ({ name: item, type: 'file' }));
 
-    const output =
-      directoriesList.length || filesList.length
-        ? [...directoriesList, ...filesList].join('\n')
-        : 'Directory is empty';
+    if (sorteDirectories.length || sortedFiles.length) {
+      console.table([...sorteDirectories, ...sortedFiles]);
+      return;
+    }
 
-    console.log(output);
+    console.log('Directory is empty');
   });
 };
