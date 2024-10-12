@@ -4,7 +4,7 @@ import { pipeline } from 'stream';
 import { createReadStream, createWriteStream } from 'fs';
 import { promisify } from 'util';
 import { errors } from '../helpers/constants.js';
-import { clearPath, processPath, getAbsolutePath } from '../helpers/utils.js';
+import { getAbsolutePath, handlePathWithSpaces } from '../helpers/utils.js';
 
 const pipe = promisify(pipeline);
 
@@ -47,29 +47,23 @@ const decompressFile = async (currentDir, filePath, destinationPath) => {
 };
 
 export const handleCompressCommand = async (currentDir, ...args) => {
-  // To handle spaces in filename or path with quotes
-  const compressArgs = processPath(args);
-  if (compressArgs.length < 2) {
-    console.error(errors.invalidInput);
+  const { error, filePath, destinationPath } = handlePathWithSpaces(...args);
+
+  if (error) {
+    console.error(error);
     return;
   }
-
-  const filePath = clearPath(compressArgs[0]);
-  const destinationPath = clearPath(compressArgs[1]);
 
   await compressFile(currentDir, filePath, destinationPath);
 };
 
 export const handleDecompressCommand = async (currentDir, ...args) => {
-  // To handle spaces in filename or path with quotes
-  const decompressArgs = processPath(args);
-  if (decompressArgs.length < 2) {
-    console.error(errors.invalidInput);
+  const { error, filePath, destinationPath } = handlePathWithSpaces(...args);
+
+  if (error) {
+    console.error(error);
     return;
   }
-
-  const filePath = clearPath(decompressArgs[0]);
-  const destinationPath = clearPath(decompressArgs[1]);
 
   await decompressFile(currentDir, filePath, destinationPath);
 };

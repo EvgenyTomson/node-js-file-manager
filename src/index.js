@@ -7,6 +7,14 @@ import { goUp, changeDir, listFiles } from './fs/navigation.js';
 import { getEOL, getCPUs, getHomeDirectory, getSystemUser, getArchitecture } from './os/info.js';
 import { calculateFileHash } from './hash/hash.js';
 import { handleCompressCommand, handleDecompressCommand } from './zip/zip.js';
+import {
+  cat,
+  add,
+  remove,
+  handleRenameCommand,
+  handleCopyCommand,
+  handleMoveCommand,
+} from './fs/operations.js';
 
 const commandConsole = readline.createInterface({ input, output });
 const username = getUsername();
@@ -83,6 +91,33 @@ commandConsole.on('line', async (input) => {
       break;
     case 'decompress':
       await handleDecompressCommand(currentDir, firstArg, ...args);
+      printCurrentDir(currentDir);
+      break;
+    case 'cat':
+      // To handle spaces in filename or path without quotes
+      await cat([firstArg, ...args].join(' '), currentDir);
+      printCurrentDir(currentDir);
+      break;
+    case 'add':
+      // To handle spaces in filename or path without quotes
+      await add([firstArg, ...args].join(' '), currentDir);
+      printCurrentDir(currentDir);
+      break;
+    case 'rm':
+      // To handle spaces in filename or path without quotes
+      await remove([firstArg, ...args].join(' '), currentDir);
+      printCurrentDir(currentDir);
+      break;
+    case 'rn':
+      await handleRenameCommand(currentDir, firstArg, ...args);
+      printCurrentDir(currentDir);
+      break;
+    case 'cp':
+      await handleCopyCommand(currentDir, firstArg, ...args);
+      printCurrentDir(currentDir);
+      break;
+    case 'mv':
+      await handleMoveCommand(currentDir, firstArg, ...args);
       printCurrentDir(currentDir);
       break;
     default:

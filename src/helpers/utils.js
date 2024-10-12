@@ -1,4 +1,5 @@
 import path from 'path';
+import { errors } from './constants.js';
 
 export const getUsername = () => {
   const args = process.argv.slice(2);
@@ -24,9 +25,23 @@ export const exitFileManager = (username) => {
   process.exit();
 };
 
-export const clearPath = (path) => path.trim().replace(/["']/g, '');
+const clearPath = (path) => path.trim().replace(/["']/g, '');
 
-export const processPath = (path) => path.join(' ').match(/(?:[^\s"]+|"[^"]*")+/g);
+const processPath = (path) => path.join(' ').match(/(?:[^\s"]+|"[^"]*")+/g);
 
 export const getAbsolutePath = (currentDir, inputPath) =>
   path.isAbsolute(inputPath) ? inputPath : path.join(currentDir, inputPath);
+
+// To handle path with spaces and quotes
+export const handlePathWithSpaces = (...args) => {
+  const compressArgs = processPath(args);
+  let error = null;
+  if (compressArgs.length < 2) {
+    error = errors.invalidInput;
+  }
+
+  const filePath = clearPath(compressArgs[0]);
+  const destinationPath = clearPath(compressArgs[1]);
+
+  return { error, filePath, destinationPath };
+};
