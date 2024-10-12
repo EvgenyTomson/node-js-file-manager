@@ -22,7 +22,7 @@ export const add = async (fileName, currentDir) => {
 
   try {
     fs.writeFileSync(absolutePath, '', { flag: 'wx' });
-    console.log(`File '${fileName}' created successfully.`);
+    console.log('\x1b[32m%s\x1b[0m', `File '${fileName}' created successfully.`);
   } catch (error) {
     console.error(errors.operationFailed);
   }
@@ -33,7 +33,7 @@ export const remove = async (filePath, currentDir) => {
 
   try {
     fs.unlinkSync(absolutePath);
-    console.log(`File '${filePath}' deleted successfully.`);
+    console.log('\x1b[32m%s\x1b[0m', `File '${filePath}' deleted successfully.`);
   } catch (error) {
     console.error(errors.operationFailed);
   }
@@ -45,7 +45,7 @@ const rename = async (currentDir, oldFilePath, newFileName) => {
 
   try {
     fs.renameSync(oldAbsolutePath, newAbsolutePath);
-    console.log(`File renamed successfully to '${newFileName}'.`);
+    console.log('\x1b[32m%s\x1b[0m', `File renamed successfully to '${newFileName}'.`);
   } catch (error) {
     console.error(errors.operationFailed);
   }
@@ -60,7 +60,7 @@ const copy = async (currentDir, filePath, newDirectory) => {
 
   try {
     await pipeline(createReadStream(sourceFile), createWriteStream(destinationFile));
-    console.log(`File copied to '${destinationFile}'.`);
+    console.log('\x1b[32m%s\x1b[0m', `File copied to '${destinationFile}'.`);
   } catch (error) {
     console.error(errors.operationFailed);
   }
@@ -76,7 +76,7 @@ const move = async (currentDir, filePath, newDirectory) => {
   try {
     await pipeline(createReadStream(sourceFile), createWriteStream(destinationFile));
     fs.unlinkSync(sourceFile);
-    console.log(`File moved to '${destinationFile}'.`);
+    console.log('\x1b[32m%s\x1b[0m', `File moved to '${destinationFile}'.`);
   } catch (error) {
     console.error(errors.operationFailed);
   }

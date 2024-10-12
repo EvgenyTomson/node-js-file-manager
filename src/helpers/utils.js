@@ -5,7 +5,7 @@ export const getUsername = () => {
   const args = process.argv.slice(2);
   const username = args.find((arg) => arg.startsWith('--username=')).split('=')[1];
 
-  if (username === '%npm_config_username%') {
+  if (!username || username === '%npm_config_username%') {
     return 'Anonymous';
   }
 
@@ -17,11 +17,11 @@ export const printCurrentDir = (currentDir) => {
 };
 
 export const wellcomeUser = (username) => {
-  console.log(`Welcome to the File Manager, ${username}!`);
+  console.log('\x1b[32m%s\x1b[0m', `Welcome to the File Manager, ${username}!`);
 };
 
 export const exitFileManager = (username) => {
-  console.log(`Thank you for using File Manager, ${username}, goodbye!`);
+  console.log('\x1b[32m%s\x1b[0m', `Thank you for using File Manager, ${username}, goodbye!`);
   process.exit();
 };
 

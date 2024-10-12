@@ -15,7 +15,10 @@ export const calculateFileHash = async (filePath, currentDir) => {
     });
 
     stream.on('end', () => {
-      console.log(`Hash for file ${path.basename(absolutePath)}: ${hash.digest('hex')}`);
+      console.log(
+        '\x1b[32m%s\x1b[0m',
+        `Hash for file ${path.basename(absolutePath)}: ${hash.digest('hex')}`
+      );
     });
 
     stream.on('error', (_) => {

@@ -52,6 +52,6 @@ export const listFiles = (currentDir) => {
       return;
     }
 
-    console.log('Directory is empty');
+    console.log('\x1b[33m%s\x1b[0m', 'Directory is empty');
   });
 };

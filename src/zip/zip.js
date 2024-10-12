@@ -21,7 +21,10 @@ const compressFile = async (currentDir, filePath, destinationPath) => {
 
     await pipe(inputStream, brotli, outputStream);
 
-    console.log(`File ${filePath} was successfully compressed to ${destinationPath}`);
+    console.log(
+      '\x1b[32m%s\x1b[0m',
+      `File ${filePath} was successfully compressed to ${destinationPath}`
+    );
   } catch (_) {
     console.error(errors.operationFailed);
   }
@@ -40,7 +43,10 @@ const decompressFile = async (currentDir, filePath, destinationPath) => {
 
     await pipe(inputStream, brotli, outputStream);
 
-    console.log(`File ${filePath} was successfully decompressed to ${destinationPath}`);
+    console.log(
+      '\x1b[32m%s\x1b[0m',
+      `File ${filePath} was successfully decompressed to ${destinationPath}`
+    );
   } catch (_) {
     console.error(errors.operationFailed);
   }
