@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { errors } from '../helpers/constants.js';
-import { getAbsolutePath } from '../helpers/utils.js';
+import { getAbsolutePath, printCurrentDir } from '../helpers/utils.js';
 
 export const goUp = (currentDir) => {
   const parentDir = path.dirname(currentDir);
@@ -49,9 +49,11 @@ export const listFiles = async (currentDir) => {
 
     if (sortedDirectories.length || sortedFiles.length) {
       console.table([...sortedDirectories, ...sortedFiles]);
+      printCurrentDir(currentDir);
       return;
     }
 
     console.log('\x1b[33m%s\x1b[0m', 'Directory is empty');
+    printCurrentDir(currentDir);
   });
 };

@@ -38,7 +38,6 @@ commandConsole.on('line', async (input) => {
       break;
     case 'ls':
       await listFiles(currentDir);
-      printCurrentDir(currentDir);
       break;
     case '.exit':
       exitFileManager(username);

@@ -11,7 +11,7 @@ export const cat = async (filePath, currentDir) => {
   try {
     const readableStream = createReadStream(absolutePath, { encoding: 'utf-8' });
     readableStream.on('data', (chunk) => process.stdout.write(chunk));
-    readableStream.on('error', () => console.error('Operation failed'));
+    readableStream.on('error', () => console.error(errors.operationFailed));
   } catch (error) {
     console.error(errors.operationFailed);
   }
@@ -75,7 +75,7 @@ const move = async (currentDir, filePath, newDirectory) => {
 
   try {
     await pipeline(createReadStream(sourceFile), createWriteStream(destinationFile));
-    fs.unlinkSync(sourceFile);
+    fs.rm(sourceFile);
     console.log('\x1b[32m%s\x1b[0m', `File moved to '${destinationFile}'.`);
   } catch (error) {
     console.error(errors.operationFailed);
