@@ -1,0 +1,23 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "simple node js file manager",
+  "main": "./src/index.js",
+  "engines": {
+    "node": ">=22.9.0"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js --username=%npm_config_username%"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvgenyTomson/node-js-file-manager.git"
+  },
+  "author": "EvgenyTomson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EvgenyTomson/node-js-file-manager/issues"
+  },
+  "homepage": "https://github.com/EvgenyTomson/node-js-file-manager#readme"
+}

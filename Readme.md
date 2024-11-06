@@ -1,5 +1,40 @@
 # Scoring: File Manager
 
+## For reviewers
+
+If you suddenly have problems getting the correct username, please change the script for launching the program to the following:
+
+```
+"start": "node src/index.js"
+```
+
+My system normally accepts launching with the parameter:
+
+```
+npm run start -- --username=your_username
+```
+
+Only if the launch script is like this:
+
+```
+"start": "node src/index.js --username=%npm_config_username%"
+```
+
+For file commands that expect a single argument (e.g. cd, hash, cat, add, rm), you should not wrap pathnames with spaces in quotes. Like:
+
+```
+cat path with spaces/file name with spaces.txt
+```
+
+But for commands that expect 2 arguments (e.g. compress, decompress, rn, cp, mv), you need to wrap the arguments in quotes. Like:
+
+```
+cp "path with spaces/file to copy with spaces.txt" "destination folder"
+```
+
+If there are no spaces, then you don't need to use quotation marks in either case.
+At least in powershell and git bash, which I checked, everything is processed correctly.
+
 ## Basic Scope
 
 - General
